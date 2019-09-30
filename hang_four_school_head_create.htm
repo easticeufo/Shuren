@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>浙江树人大学专属头像上线啦</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!--<meta name="description" content="杭四中120周年校庆专属头像上线啦|腾讯大浙网"/>-->
+    <!--<meta name="keywords" content="杭四中120周年校庆专属头像上线啦，腾讯大浙网"/>-->
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        .pc-page  body {
+            position: relative;
+            width: 750px;
+            margin: 0 auto;
+            /*overflow: hidden;*/
+        }
+        /* 加载进度条 */
+        .loading {
+            background-color: #0a0f17;
+            z-index: 99;
+        }
+        .pace {
+            -webkit-pointer-events: none;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            box-sizing: border-box;
+            /* -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px; */
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            z-index: 2000;
+            position: fixed;
+            margin: auto;
+            top: 12px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            height: 50px;
+            overflow: hidden;
+        }
+        .pace .pace-progress {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            display: block;
+            position: absolute;
+            right: 100%;
+            margin-right: 0;
+            width: 100%;
+            top: 0;
+            height: 14px;
+            font-size: 20px;
+            background: #fff;
+            color: #fff;
+            line-height: 60px;
+            font-weight: bold;
+            font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+            -webkit-box-shadow: 120px 0 #000, 240px 0 #000;
+            -ms-box-shadow: 120px 0 #000, 240px 0 #000;
+            box-shadow: 120px 0 #000, 240px 0 #000;
+        }
+        /* .pace .pace-progress:after {
+            content: attr(data-progress-text);
+            display: inline-block;
+            position: absolute;
+            width: 45px;
+            text-align: right;
+            right: 0;
+            padding-right: 16px;
+            top: 4px;
+        } */
+        .pace .pace-activity {
+            position: absolute;
+            width: 100%;
+            height: 14px;
+            z-index: 2001;
+            box-shadow: inset 0 0 0 2px #fff;
+            /* border-radius: 10px; */
+        }
+        .pace.pace-inactive {
+            display: none;
+        }
+
+        .audioCon {
+            position: fixed;
+            width: 4rem;
+            height: 4rem;
+            -webkit-background-size: cover;
+            background-size: cover;
+            right: 1rem;
+            top: 1rem;
+            z-index: 99999;
+            -webkit-animation: none;
+            background-image: url(https://mat1.gtimg.com/zj/lyen/zhengwu/xiguajie/imgs/music_pause.png)
+        }
+
+        .audioCon.playingZ {
+            background-image: url(https://mat1.gtimg.com/zj/lyen/zhengwu/xiguajie/imgs/music.png);
+            -webkit-animation: audio 2s linear infinite
+        }
+
+        @-webkit-keyframes audio {
+            0% {
+                -webkit-transform: rotate3d(0, 0, 1, -360deg);
+                transform: rotate3d(0, 0, 1, -360deg)
+            }
+            50% {
+                -webkit-transform: rotate3d(0, 0, 1, -180deg);
+                transform: rotate3d(0, 0, 1, -180deg)
+            }
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg)
+            }
+        }
+
+        .audioCon .play-pauseZ {
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0
+        }
+
+        .audioCon .scrubberZ,
+        .audioCon .timeZ {
+            display: none
+        }
+    </style>
+    <script data-pace-options='{ "ajax": false , "restartOnRequestAfter": false}' src="js/pace.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var resize = (function() {
+            // var wr = window.innerWidth / window.innerHeight;
+            var bcr = window.document.documentElement.getBoundingClientRect();
+            var wr = bcr.width / bcr.height;
+            var _width;
+            if (wr > 750 / 1106) {
+                _width = Math.floor(wr * 1106);
+            } else {
+                _width = 750;
+            }
+            var ua = navigator.userAgent;
+            if (/Android (\d+\.\d+)/.test(ua)) {
+                var version = parseFloat(RegExp.$1);
+                if (version > 2.3) {
+                    document.write('<meta name="viewport" content="width=' + _width + ',user-scalable=no,target-densitydpi=device-dpi,minimal-ui">')
+                } else {
+                    document.write('<meta name="viewport" content="width=' + _width + ',target-densitydpi=device-dpi">')
+                }
+            } else if (/QQAC_Client_iOS/.test(ua)) {
+                document.write('<meta name="viewport" content="width=' + _width + ',maximum-scale=0.5,minimum-scale=0.5">');
+            } else {
+                document.write('<meta name="viewport" content="width=' + _width + ',user-scalable=no,target-densitydpi=device-dpi,minimal-ui">')
+            }
+            var domEle = window.document.documentElement;
+            var timeCode;
+            var hwr = wr > 1 ? wr : (1 / wr)
+            // domEle.style.height = hwr * _width + "px";
+            console.log(hwr * _width + "px")
+            function resize() {
+                bcr = window.document.documentElement.getBoundingClientRect();
+                wr = bcr.width / bcr.height;
+                hwr = wr > 1 ? wr : (1 / wr);
+                domEle.style.height = hwr * _width + "px";
+                // alert(domEle.style.height);
+            }
+            // window.addEventListener("resize", function() {
+            //     clearTimeout(timeCode), timeCode = setTimeout(resize, 300)
+            // }, false);
+            // window.addEventListener("pageshow", function(b) {
+            //     b.persisted && (clearTimeout(timeCode), timeCode = setTimeout(resize, 300))
+            // }, false);
+            // resize();
+            return resize;
+        })();
+        // if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+        //     // 移动端禁止滑动
+        //     document.addEventListener("touchmove", function (e) {
+        //         e.preventDefault()
+        //     }, { passive: false })
+        // } else {
+        //     document.documentElement.className = 'pc-page';
+        // }
+    </script>
+    <!--<link rel="stylesheet" charset="utf-8" href="css/index.css"/>-->
+    <link rel="stylesheet" charset="utf-8" href="css/index.css"/>
+    <link rel="stylesheet" charset="utf-8" href="https://mat1.gtimg.com/zj/forguo/common/call/swiper.min.css">
+    <link rel="icon" href="http://mat1.gtimg.com/zj/huanghui/education/heading_create_hsz/img/share.jpg">
+    <!-- 微信分享开始 -->
+    <script type="text/javascript">
+        window.shareData = {
+            "imgUrl": "http://mat1.gtimg.com/zj/huanghui/education/heading_create_hsz/img/share.jpg",
+            /*微信分享显示的缩略图*/
+            "timeLineLink": window.location.href,
+            /*微信分享的链接*/
+            "tTitle": "杭四中120周年校庆专属头像上线啦",
+            /*微信分享的标题*/
+            "tContent": "母校喊你来领取你的专属头像"
+            /*微信分享的摘要文字*/
+        };
+    </script>
+    <!-- 微信分享结束 -->
+</head>
+
+<body>
+
+    <div class="audioCon">
+        <audio src="https://mat1.gtimg.com/zj/yumin/education/headimg_create_wuyi/music/music.mp3" id="audio" autoplay loop="loop"></audio>
+        <div class="abs play-pauseZ">
+            <p class="playZ"></p>
+            <p class="pauseZ"></p>
+            <p class="loadingZ"></p>
+        </div>
+        <div class="scrubberZ">
+            <div class="progressZ"></div>
+            <div class="loadedZ"></div>
+        </div>
+        <div class="timeZ">
+            <em class="playedZ"></em>/
+            <strong class="durationZ"></strong>
+        </div>
+    </div>
+
+<!-- loading start -->
+<div class="section loading"></div>
+<!-- loading end -->
+
+<div class="preload">
+    <img src="img/bg.jpg" />
+    <img src="img/upload-bg.jpg" alt="">
+    <img src="img/file-bg.png" alt="">
+    <img src="img/head0.png" alt="">
+    <img src="img/head1.png" alt="">
+    <img src="img/head2.png" alt="">
+    <img src="img/head3.png" alt="">
+    <img src="img/head4.png" alt="">
+    <img src="img/head5.png" alt="">
+    <img src="img/head6.png" alt="">
+    <img src="img/head7.png" alt="">
+    <img src="img/res-border0.png" />
+    <img src="img/res-border1.png" />
+    <img src="img/res-border2.png" />
+    <img src="img/res-border3.png" />
+    <img src="img/res-border4.png" />
+    <img src="img/res-border5.png" />
+    <img src="img/res-border6.png" />
+    <img src="img/res-border7.png" />
+</div>
+
+<!-- 欢迎页 s -->
+<div class="abs slide index" id="index">
+    <img class="abs logo" src="img/logo.png" alt="">
+    <img class="abs theme" src="img/theme.png" alt="">
+    <img class="abs act-name" src="img/act-name.png" alt="">
+    <div class="start-btn abs" id="startBtn">领取你的专属头像</div>
+</div>
+<!-- 欢迎页 e -->
+
+
+<!-- 图片上传 s -->
+<div class="abs full upload" id="upload">
+    <div class="abs content">
+        <div class="photo-box">
+            <div class="file-btn" id="fileBtn">
+                <input type="file" id="uploadFile" accept="image/*" class="abs full uplpad-file"/>
+                <canvas id="cutCanvas" class="abs cut-canvas" width="518" height="571"></canvas>
+                <div class="review">
+                </div>
+                <div class="abs full ctrl-layer" id="ctrlLayer"></div>
+                <div class="upload-info">
+                    <div class="icon-add"></div>
+                    <p class="tips"></p>
+                    <p class="warn">请上传清晰照片</p>
+                </div>
+            </div>
+            <p class="cut-tips">拖动照片调整位置</p>
+        </div>
+
+        <!-- 头像选择 s-->
+        <div class="chose-box">
+            <div class="head-list">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="head-btn head1">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="head-btn head2">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="head-btn head3">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="head-btn head4">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="head-btn head5">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="head-btn head6">
+                                <div class="head-item"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 修改箭头颜色示范 -->
+                <div class="swiper-button-prev"></div> <!-- 白色 -->
+                <div class="swiper-button-next"></div> <!-- 黑色 -->
+
+            </div>
+            <p class="title">请选择头像类型</p>
+        </div>
+        <!-- 头像选择 e-->
+
+        <div class="btns">
+            <a href="javascript:;" class="reupload btn">重新上传</a>
+            <a href="javascript:;" class="create-btn btn">生成照片</a>
+        </div>
+    </div>
+
+
+</div>
+<!-- 图片上传 s -->
+
+
+<!-- 结果页 s -->
+<div class="abs full result">
+    <div class="abs content" style="height: 817px;margin-top: -440px">
+        <div class="save-box">
+            <img src="" class="abs res-img" id="res-img">
+            <canvas id="resCanvas" class="abs res-canvas" width="613" height="661"></canvas>
+            <p class="abs tips">长按图片可保存</p>
+        </div>
+
+        <div class="btns">
+            <a href="javascript:;" class="btn again-btn">重新选择</a>
+            <a href="javascript:;" class="btn share-btn">转发分享</a>
+        </div>
+
+    </div>
+</div>
+<!-- 结果页 s -->
+
+<!-- 分享页面 s-->
+<div class="full share">
+    <div class="abs share-tips"></div>
+    <div class="abs know-btn"></div>
+</div>
+<!-- 分享页面 e-->
+
+<script type="text/javascript" src="js/jquery-2.1.1.min.js" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8" src="js/swiper.min.js"></script>
+<script charset="utf-8" src="js/filereader.min.js"></script>
+<script charset="utf-8" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/audio.min.js"></script>
+<script charset="utf-8" src="js/data.js"></script>
+<script charset="utf-8" src="js/app.js"></script>
+</body>
+
+<script>
+
+    audiojs.events.ready(function () {
+    		var as = audiojs.create(document.getElementsByTagName("audio")[0], {
+    			css: false,
+    			createPlayer: {
+    				markup: false,
+    				playPauseClass: 'play-pauseZ',
+    				scrubberClass: 'scrubberZ',
+    				progressClass: 'progressZ',
+    				loaderClass: 'loadedZ',
+    				timeClass: 'timeZ',
+    				durationClass: 'durationZ',
+    				playedClass: 'playedZ',
+    				errorMessageClass: 'error-messageZ',
+    				playingClass: 'playingZ'
+    			}
+    		});
+    	});
+
+    	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    		WeixinJSBridge.invoke('getNetworkType', {},
+    			function (e) {
+    				document.getElementsByTagName("audio")[0].play();
+    			});
+    	}, false);
+
+    function onShareComplete(res) {
+        //window.location.href='';
+    }
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+            WeixinJSBridge.invoke('sendAppMessage', {
+                "img_url": window.shareData.imgUrl,
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, onShareComplete);
+        });
+        WeixinJSBridge.on('menu:share:timeline', function (argv) {
+            WeixinJSBridge.invoke('shareTimeline', {
+                "img_url": window.shareData.imgUrl,
+                "img_width": "640",
+                "img_height": "640",
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, onShareComplete);
+        });
+    }, false);
+    window.ontouchmove=function(e){
+        e.preventDefault && e.preventDefault();
+        e.returnValue=false;
+        e.stopPropagation && e.stopPropagation();    return false;
+    };
+</script>
+<!-- 微信分享结束 -->
+
+</html>
